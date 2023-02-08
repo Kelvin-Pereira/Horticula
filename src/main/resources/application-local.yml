@@ -14,6 +14,8 @@ spring:
         show_sql: true
         format_sql: true
         default_schema: HORTICOLA
+    hibernate:
+      ddl-auto: create-drop
   h2:
     console:
       path: /h2
