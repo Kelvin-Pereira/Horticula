@@ -23,11 +23,12 @@ public class AutheticationService {
 
     public AuthenticationDTO register(RegisterDTO registerDTO) {
         var user = User.builder()
-                .firstName(registerDTO.getFirstname())
-                .lastName(registerDTO.getLastname())
+                .firstName(registerDTO.getPrimeiroNome())
+                .lastName(registerDTO.getSobreNome())
+                .cpf(registerDTO.getCpf())
                 .email(registerDTO.getEmail())
                 .password(passwordEncoder.encode(registerDTO.getPassword()))
-                .role(RoleEnum.USER)
+                .role(RoleEnum.ROLE_USER)
                 .build();
         repository.save(user);
         var jwtToken = jwtService.generateToken(user);

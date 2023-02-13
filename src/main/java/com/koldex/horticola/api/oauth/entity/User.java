@@ -26,6 +26,7 @@ public class User implements UserDetails {
     @Size(max = 20)
     private String firstName;
     private String lastName;
+    private String cpf;
     private String email;
     private String password;
     @Enumerated(EnumType.STRING)
@@ -65,4 +66,9 @@ public class User implements UserDetails {
     public boolean isEnabled() {
         return false;
     }
+
+    public String getNomeCompleto(){
+        return firstName + " " + lastName;
+    }
+
 }

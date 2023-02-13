@@ -1,5 +1,8 @@
 package com.koldex.horticola.api.oauth.service;
 
+import com.koldex.horticola.api.oauth.entity.User;
+import com.koldex.horticola.api.oauth.repository.UserRepository;
+import com.koldex.horticola.config.exceptions.NegocioException;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
@@ -13,35 +16,47 @@ import java.security.Key;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Objects;
+import java.util.Optional;
 import java.util.function.Function;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
 public class JwtService {
 
+    private final UserRepository repository;
     private static final String SECRET_KEY = "4226452948404D635166546A576D5A7134743777217A25432A462D4A614E6452";
 
     public String extractUsername(String token) {
         return extractClaim(token, Claims::getSubject);
     }
 
-    public String generateToken(UserDetails userDetails){
-        return generateToken(new HashMap<>(), userDetails);
+    public String generateToken(UserDetails userDetails) {
+        return generateToken(createClaim(userDetails));
     }
 
-    public String generateToken(Map<String, Objects> extraClaims, UserDetails userDetails) {
+    private Map<String, String> createClaim(UserDetails userDetails) {
+        User user = repository.findByEmailIgnoreCase(userDetails.getUsername()).orElseThrow(() -> new NegocioException("Usúario não localizado."));
+        Map<String, String> claims = new HashMap<>();
+        claims.put("id", user.getId().toString());
+        claims.put("nome", user.getNomeCompleto());
+        claims.put("cpf", user.getCpf());
+        claims.put("email", userDetails.getUsername());
+        claims.put("roles", userDetails.getAuthorities().stream().map(String::valueOf).collect(Collectors.joining(",")));
+        return claims;
+    }
+
+    public String generateToken(Map<String, String> extraClaims) {
         return Jwts
                 .builder()
                 .setClaims(extraClaims)
-                .setSubject(userDetails.getUsername())
                 .setIssuedAt(new Date(System.currentTimeMillis()))
                 .setExpiration(new Date(System.currentTimeMillis() + 1000 * 60 * 24))
                 .signWith(getSingInKey(), SignatureAlgorithm.HS256)
                 .compact();
     }
 
-    public boolean isTokenValid(String token, UserDetails userDetails){
+    public boolean isTokenValid(String token, UserDetails userDetails) {
         final String username = extractUsername(token);
         return (username.equals(userDetails.getUsername())) && !isTokenExpired(token);
     }

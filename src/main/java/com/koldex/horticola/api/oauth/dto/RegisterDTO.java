@@ -8,8 +8,9 @@ import lombok.*;
 @NoArgsConstructor
 public class RegisterDTO {
 
-    private String firstname;
-    private String lastname;
+    private String primeiroNome;
+    private String sobreNome;
+    private String cpf;
     private String email;
     private String password;
 
