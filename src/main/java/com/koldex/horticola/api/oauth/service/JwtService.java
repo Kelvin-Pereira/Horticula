@@ -37,7 +37,7 @@ public class JwtService {
     private Map<String, String> createClaim(UserDetails userDetails) {
         User user = repository.findByEmailIgnoreCase(userDetails.getUsername()).orElseThrow(() -> new NegocioException("Usúario não localizado."));
         Map<String, String> claims = new HashMap<>();
-        claims.put("id", user.getId().toString());
+        claims.put("idUsuario", user.getIdUser().toString());
         claims.put("nome", user.getNomeCompleto());
         claims.put("cpf", user.getCpf());
         claims.put("email", userDetails.getUsername());

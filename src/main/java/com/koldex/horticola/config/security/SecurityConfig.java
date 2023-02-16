@@ -1,6 +1,6 @@
 package com.koldex.horticola.config.security;
 
-import com.koldex.horticola.api.oauth.entity.enums.RoleEnum;
+import com.koldex.horticola.api.oauth.entity.enums.PerfilEnum;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -25,16 +25,16 @@ public class SecurityConfig {
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        http.csrf()
+        return http.csrf()
                 .disable()
                 .authorizeHttpRequests()
                 .requestMatchers(PERMITS)
                 .permitAll()
-                .requestMatchers(HttpMethod.GET).hasAuthority(RoleEnum.ROLE_USER.getRole())
-                .requestMatchers(HttpMethod.POST).hasAuthority(RoleEnum.ROLE_USER.getRole())
-                .requestMatchers(HttpMethod.PUT).hasAuthority(RoleEnum.ROLE_USER.getRole())
-                .requestMatchers(HttpMethod.PATCH).hasAuthority(RoleEnum.ROLE_USER.getRole())
-                .requestMatchers(HttpMethod.DELETE).hasAuthority(RoleEnum.ROLE_USER.getRole())
+                .requestMatchers(HttpMethod.GET).hasAuthority(PerfilEnum.ROLE_USER.toString())
+                .requestMatchers(HttpMethod.POST).hasAuthority(PerfilEnum.ROLE_USER.toString())
+                .requestMatchers(HttpMethod.PUT).hasAuthority(PerfilEnum.ROLE_USER.toString())
+                .requestMatchers(HttpMethod.PATCH).hasAuthority(PerfilEnum.ROLE_USER.toString())
+                .requestMatchers(HttpMethod.DELETE).hasAuthority(PerfilEnum.ROLE_USER.toString())
                 .anyRequest()
                 .authenticated()
                 .and()
@@ -42,10 +42,7 @@ public class SecurityConfig {
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
                 .authenticationProvider(authenticationProvider)
-                .addFilterAfter(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);
-//        .oauth2ResourceServer().jwt().jwtAuthenticationConverter(jwtAuthenticationConverter())
-
-        return http.build();
+                .addFilterAfter(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class).build();
     }
 
 }
