@@ -32,7 +32,7 @@ public class AutheticationService {
                 .build();
         repository.save(user);
         var jwtToken = jwtService.generateToken(user);
-        return  AuthenticationDTO.builder()
+        return AuthenticationDTO.builder()
                 .token(jwtToken)
                 .build();
     }

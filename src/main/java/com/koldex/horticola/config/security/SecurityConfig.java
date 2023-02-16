@@ -30,11 +30,11 @@ public class SecurityConfig {
                 .authorizeHttpRequests()
                 .requestMatchers(PERMITS)
                 .permitAll()
-                .requestMatchers(HttpMethod.GET).hasAnyRole(RoleEnum.ROLE_USER.getRole())
-                .requestMatchers(HttpMethod.POST).hasAnyRole(RoleEnum.ROLE_USER.getRole())
-                .requestMatchers(HttpMethod.PUT).hasAnyRole(RoleEnum.ROLE_USER.getRole())
-                .requestMatchers(HttpMethod.PATCH).hasAnyRole(RoleEnum.ROLE_USER.getRole())
-                .requestMatchers(HttpMethod.DELETE).hasAnyRole(RoleEnum.ROLE_USER.getRole())
+                .requestMatchers(HttpMethod.GET).hasAuthority(RoleEnum.ROLE_USER.getRole())
+                .requestMatchers(HttpMethod.POST).hasAuthority(RoleEnum.ROLE_USER.getRole())
+                .requestMatchers(HttpMethod.PUT).hasAuthority(RoleEnum.ROLE_USER.getRole())
+                .requestMatchers(HttpMethod.PATCH).hasAuthority(RoleEnum.ROLE_USER.getRole())
+                .requestMatchers(HttpMethod.DELETE).hasAuthority(RoleEnum.ROLE_USER.getRole())
                 .anyRequest()
                 .authenticated()
                 .and()
@@ -43,6 +43,7 @@ public class SecurityConfig {
                 .and()
                 .authenticationProvider(authenticationProvider)
                 .addFilterAfter(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);
+//        .oauth2ResourceServer().jwt().jwtAuthenticationConverter(jwtAuthenticationConverter())
 
         return http.build();
     }

@@ -13,7 +13,7 @@ import java.security.Principal;
 public class ExemplesController {
 
     @GetMapping
-    public String teste(){
+    public String teste(Principal principal) {
         return "OK";
     }
 

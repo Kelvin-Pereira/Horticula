@@ -67,7 +67,7 @@ public class User implements UserDetails {
         return true;
     }
 
-    public String getNomeCompleto(){
+    public String getNomeCompleto() {
         return firstName + " " + lastName;
     }
 
