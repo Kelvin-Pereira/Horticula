@@ -5,8 +5,10 @@ import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.oauth2.jwt.Jwt;
 
-import java.util.*;
-import java.util.stream.Collectors;
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 @Getter
 @RequiredArgsConstructor
@@ -18,8 +20,8 @@ public class Usuario {
     private final String email;
     private final Set<PerfilEnum> perfils;
 
-    Usuario(Jwt jwt){
-        id =  Long.parseLong(jwt.getClaimAsString("id"));
+    Usuario(Jwt jwt) {
+        id = Long.parseLong(jwt.getClaimAsString("id"));
         nome = jwt.getClaimAsString("nome");
         cpf = jwt.getClaimAsString("cpf");
         email = jwt.getClaimAsString("email");

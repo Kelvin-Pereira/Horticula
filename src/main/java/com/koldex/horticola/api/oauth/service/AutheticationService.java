@@ -3,6 +3,7 @@ package com.koldex.horticola.api.oauth.service;
 import com.koldex.horticola.api.oauth.dto.AuthenticateDTO;
 import com.koldex.horticola.api.oauth.dto.AuthenticationDTO;
 import com.koldex.horticola.api.oauth.dto.RegisterDTO;
+import com.koldex.horticola.api.oauth.entity.Perfil;
 import com.koldex.horticola.api.oauth.entity.User;
 import com.koldex.horticola.api.oauth.entity.enums.PerfilEnum;
 import com.koldex.horticola.api.oauth.repository.UserRepository;
@@ -11,6 +12,9 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+
+import java.util.HashSet;
+import java.util.Set;
 
 @Service
 @RequiredArgsConstructor
@@ -22,13 +26,20 @@ public class AutheticationService {
     private final AuthenticationManager authenticationManager;
 
     public AuthenticationDTO register(RegisterDTO registerDTO) {
+        Set<Perfil> collectionPerfil = new HashSet<>();
+        Perfil perfil = new Perfil();
+        Perfil perfil2 = new Perfil();
+        perfil.setRole(PerfilEnum.ROLE_USER);
+        perfil2.setRole(PerfilEnum.ROLE_ADMIN);
+        collectionPerfil.add(perfil);
+        collectionPerfil.add(perfil2);
         var user = User.builder()
                 .firstName(registerDTO.getPrimeiroNome())
                 .lastName(registerDTO.getSobreNome())
                 .cpf(registerDTO.getCpf())
                 .email(registerDTO.getEmail())
                 .password(passwordEncoder.encode(registerDTO.getPassword()))
-                .role(PerfilEnum.ROLE_USER)
+                .role(collectionPerfil)
                 .build();
         repository.save(user);
         var jwtToken = jwtService.generateToken(user);
@@ -36,26 +47,6 @@ public class AutheticationService {
                 .token(jwtToken)
                 .build();
     }
-
-//    public AuthenticationDTO register(RegisterDTO registerDTO) {
-//        Set<Perfil> collectionPerfil = new HashSet<>();
-//        Perfil perfil = new Perfil();
-//        perfil.setRole(PerfilEnum.ROLE_USER);
-//        collectionPerfil.add(perfil);
-//        var user = User.builder()
-//                .firstName(registerDTO.getPrimeiroNome())
-//                .lastName(registerDTO.getSobreNome())
-//                .cpf(registerDTO.getCpf())
-//                .email(registerDTO.getEmail())
-//                .password(passwordEncoder.encode(registerDTO.getPassword()))
-//                .perfils(collectionPerfil)
-//                .build();
-//        repository.save(user);
-//        var jwtToken = jwtService.generateToken(user);
-//        return AuthenticationDTO.builder()
-//                .token(jwtToken)
-//                .build();
-//    }
 
     public AuthenticationDTO authetication(AuthenticateDTO authenticateDTO) {
         authenticationManager.authenticate(

@@ -1,6 +1,5 @@
 package com.koldex.horticola.api.oauth.entity;
 
-import com.koldex.horticola.api.oauth.entity.enums.PerfilEnum;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Size;
 import lombok.*;
@@ -8,10 +7,8 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import java.io.Serializable;
 import java.util.Collection;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -22,31 +19,26 @@ import java.util.stream.Collectors;
 @AllArgsConstructor
 @Entity
 @Table(name = "_user")
-public class User implements UserDetails, Serializable {
+public class User implements UserDetails {
     @Id
     @GeneratedValue
     private Long idUser;
     @Size(max = 20)
     private String firstName;
+    @Size(max = 100)
     private String lastName;
+    @Size(max = 11)
     private String cpf;
+    @Size(max = 60)
     private String email;
     private String password;
-    @Enumerated(EnumType.STRING)
-    private PerfilEnum role;
-
-//    @OneToMany(mappedBy = "_user")
-//    private Set<Perfil> perfils = new HashSet<>();
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private Set<Perfil> role = new HashSet<>();
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return List.of(new SimpleGrantedAuthority(role.name()));
+        return role.stream().map(r -> new SimpleGrantedAuthority(r.getRole().name())).collect(Collectors.toList());
     }
-
-//    @Override
-//    public Collection<? extends GrantedAuthority> getAuthorities() {
-//        return List.of(new SimpleGrantedAuthority(perfils.stream().map(p -> p.getRole().name()).collect(Collectors.joining(","))));
-//    }
 
     @Override
     public String getPassword() {
