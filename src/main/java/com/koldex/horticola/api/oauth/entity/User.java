@@ -32,7 +32,8 @@ public class User implements UserDetails {
     @Size(max = 60)
     private String email;
     private String password;
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinColumn(name = "id_user")
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<Perfil> role = new HashSet<>();
 
     @Override

@@ -21,8 +21,8 @@ public class Perfil {
     @Enumerated(EnumType.STRING)
     private PerfilEnum role;
 
-    @ManyToOne
-    @JoinColumn(name = "id_User")
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "id_user")
     private User user;
 
 }

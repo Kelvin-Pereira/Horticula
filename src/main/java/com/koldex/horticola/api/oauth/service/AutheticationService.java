@@ -12,6 +12,7 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -25,6 +26,8 @@ public class AutheticationService {
     private final JwtService jwtService;
     private final AuthenticationManager authenticationManager;
 
+    // TODO refatorar !
+    @Transactional
     public AuthenticationDTO register(RegisterDTO registerDTO) {
         Set<Perfil> collectionPerfil = new HashSet<>();
         Perfil perfil = new Perfil();
@@ -41,6 +44,7 @@ public class AutheticationService {
                 .password(passwordEncoder.encode(registerDTO.getPassword()))
                 .role(collectionPerfil)
                 .build();
+
         repository.save(user);
         var jwtToken = jwtService.generateToken(user);
         return AuthenticationDTO.builder()
