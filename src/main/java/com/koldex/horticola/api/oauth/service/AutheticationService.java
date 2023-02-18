@@ -5,7 +5,7 @@ import com.koldex.horticola.api.oauth.dto.AuthenticationDTO;
 import com.koldex.horticola.api.oauth.dto.RegisterDTO;
 import com.koldex.horticola.api.oauth.entity.Perfil;
 import com.koldex.horticola.api.oauth.entity.User;
-import com.koldex.horticola.api.oauth.entity.enums.PerfilEnum;
+import com.koldex.horticola.api.oauth.entity.enums.RoleEnum;
 import com.koldex.horticola.api.oauth.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -32,8 +32,8 @@ public class AutheticationService {
         Set<Perfil> collectionPerfil = new HashSet<>();
         Perfil perfil = new Perfil();
         Perfil perfil2 = new Perfil();
-        perfil.setRole(PerfilEnum.ROLE_USER);
-        perfil2.setRole(PerfilEnum.ROLE_ADMIN);
+        perfil.setRole(RoleEnum.ROLE_USER);
+        perfil2.setRole(RoleEnum.ROLE_ADMIN);
         collectionPerfil.add(perfil);
         collectionPerfil.add(perfil2);
         var user = User.builder()

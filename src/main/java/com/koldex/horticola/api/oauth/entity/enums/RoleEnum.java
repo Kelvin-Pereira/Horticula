@@ -5,12 +5,12 @@ import lombok.RequiredArgsConstructor;
 
 @Getter
 @RequiredArgsConstructor
-public enum PerfilEnum {
+public enum RoleEnum {
 
     ROLE_ADMIN,
     ROLE_USER;
 
-    public static PerfilEnum parse(String role) {
-        return PerfilEnum.valueOf(role.trim());
+    public static RoleEnum parse(String role) {
+        return RoleEnum.valueOf(role.trim());
     }
 }

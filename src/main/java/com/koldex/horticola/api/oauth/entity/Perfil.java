@@ -1,6 +1,6 @@
 package com.koldex.horticola.api.oauth.entity;
 
-import com.koldex.horticola.api.oauth.entity.enums.PerfilEnum;
+import com.koldex.horticola.api.oauth.entity.enums.RoleEnum;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -19,7 +19,7 @@ public class Perfil {
     @GeneratedValue
     private Long idPerfil;
     @Enumerated(EnumType.STRING)
-    private PerfilEnum role;
+    private RoleEnum role;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_user")

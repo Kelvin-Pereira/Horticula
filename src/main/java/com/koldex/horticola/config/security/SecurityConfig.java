@@ -1,6 +1,6 @@
 package com.koldex.horticola.config.security;
 
-import com.koldex.horticola.api.oauth.entity.enums.PerfilEnum;
+import com.koldex.horticola.api.oauth.entity.enums.RoleEnum;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -30,11 +30,11 @@ public class SecurityConfig {
                 .authorizeHttpRequests()
                 .requestMatchers(PERMITS)
                 .permitAll()
-                .requestMatchers(HttpMethod.GET).hasAuthority(PerfilEnum.ROLE_USER.toString())
-                .requestMatchers(HttpMethod.POST).hasAuthority(PerfilEnum.ROLE_USER.toString())
-                .requestMatchers(HttpMethod.PUT).hasAuthority(PerfilEnum.ROLE_USER.toString())
-                .requestMatchers(HttpMethod.PATCH).hasAuthority(PerfilEnum.ROLE_USER.toString())
-                .requestMatchers(HttpMethod.DELETE).hasAuthority(PerfilEnum.ROLE_USER.toString())
+                .requestMatchers(HttpMethod.GET).hasAuthority(RoleEnum.ROLE_USER.toString())
+                .requestMatchers(HttpMethod.POST).hasAuthority(RoleEnum.ROLE_USER.toString())
+                .requestMatchers(HttpMethod.PUT).hasAuthority(RoleEnum.ROLE_USER.toString())
+                .requestMatchers(HttpMethod.PATCH).hasAuthority(RoleEnum.ROLE_USER.toString())
+                .requestMatchers(HttpMethod.DELETE).hasAuthority(RoleEnum.ROLE_USER.toString())
                 .anyRequest()
                 .authenticated()
                 .and()
