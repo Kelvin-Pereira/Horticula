@@ -6,16 +6,22 @@ spring:
     username: horticola
     password: horticola123
     driver-class-name: org.h2.Driver
+  flyway:
+    url: jdbc:h2:mem:dbo;INIT=CREATE SCHEMA IF NOT EXISTS HORTICOLA
+    user: horticola
+    password: horticola123
+    default-schema: HORTICOLA
+
   jpa:
     database-platform: org.hibernate.dialect.H2Dialect
-    defer-datasource-initialization: true
+    defer-datasource-initialization: false
     properties:
       hibernate:
         show_sql: true
         format_sql: true
         default_schema: HORTICOLA
     hibernate:
-      ddl-auto: create-drop
+      ddl-auto: none
   h2:
     console:
       path: /h2

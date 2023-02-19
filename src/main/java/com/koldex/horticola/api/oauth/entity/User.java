@@ -21,7 +21,7 @@ import java.util.stream.Collectors;
 @Table(name = "_user")
 public class User implements UserDetails {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idUser;
     @Size(max = 20)
     private String firstName;

@@ -16,7 +16,7 @@ import lombok.Setter;
 public class Perfil {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idPerfil;
     @Enumerated(EnumType.STRING)
     private RoleEnum role;
