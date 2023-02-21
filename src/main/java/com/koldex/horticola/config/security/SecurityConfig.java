@@ -30,7 +30,7 @@ public class SecurityConfig {
                 .requestMatchers(PERMITS)
                 .permitAll()
                 .requestMatchers(HttpMethod.GET).hasAnyAuthority(PerfilEnum.USER.toString(), PerfilEnum.ADMIN.toString() )
-                .requestMatchers("/auth/regiser").hasAnyAuthority(PerfilEnum.ADMIN.toString())
+                .requestMatchers("/auth/register").hasAnyAuthority(PerfilEnum.ADMIN.toString())
                 .requestMatchers(HttpMethod.POST).hasAnyAuthority(PerfilEnum.USER.toString())
                 .requestMatchers(HttpMethod.PUT).hasAnyAuthority(PerfilEnum.USER.toString())
                 .requestMatchers(HttpMethod.PATCH).hasAnyAuthority(PerfilEnum.USER.toString())

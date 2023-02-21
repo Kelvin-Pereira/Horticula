@@ -1,6 +1,7 @@
 package com.koldex.horticola.config.exceptions;
 
 import jakarta.validation.ConstraintViolationException;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -10,6 +11,7 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import java.util.NoSuchElementException;
 
+@Slf4j
 @RestControllerAdvice
 public class ControllerExceptionHandler {
 
@@ -62,6 +64,7 @@ public class ControllerExceptionHandler {
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     @ExceptionHandler(Exception.class)
     public ResponseError handleException(Exception e) {
+        log.error(String.valueOf(e));
         ResponseError responseError = new ResponseError();
         responseError.setCode(HttpStatus.INTERNAL_SERVER_ERROR.value());
         responseError.setDescription("Ocorreu um erro interno em nosso servidor.");
