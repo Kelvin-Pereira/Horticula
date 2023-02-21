@@ -1,6 +1,6 @@
 package com.koldex.horticola.config.security;
 
-import com.koldex.horticola.api.oauth.entity.enums.RoleEnum;
+import com.koldex.horticola.api.oauth.entity.enums.PerfilEnum;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -20,8 +20,7 @@ public class SecurityConfig {
     private final JwtAuthenticationFilter jwtAuthFilter;
     private final AuthenticationProvider authenticationProvider;
 
-    private static final String[] PERMITS = {"/auth/**"};
-
+    private static final String[] PERMITS = {"/auth/authenticate"};
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
@@ -30,11 +29,12 @@ public class SecurityConfig {
                 .authorizeHttpRequests()
                 .requestMatchers(PERMITS)
                 .permitAll()
-                .requestMatchers(HttpMethod.GET).hasAuthority(RoleEnum.ROLE_USER.toString())
-                .requestMatchers(HttpMethod.POST).hasAuthority(RoleEnum.ROLE_USER.toString())
-                .requestMatchers(HttpMethod.PUT).hasAuthority(RoleEnum.ROLE_USER.toString())
-                .requestMatchers(HttpMethod.PATCH).hasAuthority(RoleEnum.ROLE_USER.toString())
-                .requestMatchers(HttpMethod.DELETE).hasAuthority(RoleEnum.ROLE_USER.toString())
+                .requestMatchers(HttpMethod.GET).hasAnyAuthority(PerfilEnum.ROLE_USER.toString(), PerfilEnum.ROLE_ADMIN.toString() )
+                .requestMatchers("/auth/regiser").hasAnyAuthority(PerfilEnum.ROLE_ADMIN.toString())
+                .requestMatchers(HttpMethod.POST).hasAnyAuthority(PerfilEnum.ROLE_USER.toString())
+                .requestMatchers(HttpMethod.PUT).hasAnyAuthority(PerfilEnum.ROLE_USER.toString())
+                .requestMatchers(HttpMethod.PATCH).hasAnyAuthority(PerfilEnum.ROLE_USER.toString())
+                .requestMatchers(HttpMethod.DELETE).hasAnyAuthority(PerfilEnum.ROLE_USER.toString())
                 .anyRequest()
                 .authenticated()
                 .and()

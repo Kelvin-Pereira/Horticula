@@ -2,7 +2,7 @@ package com.koldex.horticola.config.user;
 
 import com.koldex.horticola.api.oauth.entity.Perfil;
 import com.koldex.horticola.api.oauth.entity.User;
-import com.koldex.horticola.api.oauth.entity.enums.RoleEnum;
+import com.koldex.horticola.api.oauth.entity.enums.PerfilEnum;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
@@ -17,14 +17,14 @@ public class Usuario {
     private final String nome;
     private final String cpf;
     private final String email;
-    private final Set<RoleEnum> roles;
+    private final Set<PerfilEnum> perfils;
 
     Usuario(User user) {
         id = user.getIdUser();
         nome = user.getNomeCompleto();
         cpf = user.getCpf();
         email = user.getEmail();
-        roles = user.getRole().stream().map(Perfil::getRole).collect(Collectors.toSet());
+        perfils = user.getPerfils().stream().map(Perfil::getPerfil).collect(Collectors.toSet());
     }
 
 }

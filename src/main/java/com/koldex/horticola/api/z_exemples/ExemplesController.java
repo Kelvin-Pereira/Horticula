@@ -12,8 +12,8 @@ import org.springframework.web.bind.annotation.RestController;
 public class ExemplesController {
 
     @GetMapping
-    public String teste(Usuario usuario) {
-        return "OK";
+    public Usuario teste(Usuario usuario) {
+        return usuario;
     }
 
 }

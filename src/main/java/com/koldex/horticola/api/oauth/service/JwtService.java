@@ -41,7 +41,7 @@ public class JwtService {
         claims.put("nome", user.getNomeCompleto());
         claims.put("cpf", user.getCpf());
         claims.put("email", userDetails.getUsername());
-        claims.put("roles", userDetails.getAuthorities().stream().map(String::valueOf).collect(Collectors.joining(",")));
+        claims.put("perfils", userDetails.getAuthorities().stream().map(String::valueOf).collect(Collectors.joining(",")));
         return claims;
     }
 

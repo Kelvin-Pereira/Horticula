@@ -35,11 +35,11 @@ public class User implements UserDetails {
     private String password;
     @JoinColumn(name = "id_user")
     @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
-    private Set<Perfil> role = new HashSet<>();
+    private Set<Perfil> perfils = new HashSet<>();
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return role.stream().map(r -> new SimpleGrantedAuthority(r.getRole().name())).collect(Collectors.toList());
+        return perfils.stream().map(r -> new SimpleGrantedAuthority(r.getPerfil().name())).collect(Collectors.toList());
     }
 
     @Override
