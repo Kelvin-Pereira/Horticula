@@ -16,7 +16,8 @@ import lombok.Setter;
 public class Perfil {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @SequenceGenerator(name = "perfil_seq", sequenceName = "perfil_seq", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "perfil_seq")
     private Long idPerfil;
     @Enumerated(EnumType.STRING)
     private RoleEnum role;
