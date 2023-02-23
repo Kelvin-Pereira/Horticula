@@ -27,7 +27,7 @@ public class JwtService {
     private static final String SECRET_KEY = "4226452948404D635166546A576D5A7134743777217A25432A462D4A614E6452";
 
     public String extractUsername(String token) {
-        return extractClaim(token, Claims::getSubject);
+        return extractClaim(token, (Claims c) ->c.get("email").toString());
     }
 
     public String generateToken(UserDetails userDetails) {
@@ -49,7 +49,6 @@ public class JwtService {
         return Jwts
                 .builder()
                 .setClaims(extraClaims)
-                .setSubject(extraClaims.get("email"))
                 .setIssuedAt(new Date(System.currentTimeMillis()))
                 .setExpiration(new Date(System.currentTimeMillis() + 1000 * 60 * 24))
                 .signWith(getSingInKey(), SignatureAlgorithm.HS256)

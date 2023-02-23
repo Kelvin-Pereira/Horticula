@@ -5,7 +5,6 @@ import com.koldex.horticola.api.oauth.dto.AuthenticationDTO;
 import com.koldex.horticola.api.oauth.dto.RegisterDTO;
 import com.koldex.horticola.api.oauth.entity.Perfil;
 import com.koldex.horticola.api.oauth.entity.User;
-import com.koldex.horticola.api.oauth.entity.enums.PerfilEnum;
 import com.koldex.horticola.api.oauth.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -14,8 +13,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.HashSet;
-import java.util.Set;
 import java.util.stream.Collectors;
 
 @Service
