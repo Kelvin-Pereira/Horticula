@@ -23,7 +23,7 @@ public final class UsuarioOAuth2 extends UsuarioArgumentResolver {
     }
 
     private Usuario parseUsuario(User user) {
-        return new Usuario(user);
+        return new UsuarioPrincipal(user);
     }
 
 }

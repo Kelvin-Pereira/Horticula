@@ -17,7 +17,10 @@ import static java.lang.annotation.ElementType.*;
 @Constraint(validatedBy = ValueOfEnumValidator.class)
 public @interface ValueOfEnum {
     Class<? extends Enum<?>> enumClass();
+
     String message() default "erro.enum.opcao.invalida";
+
     Class<?>[] groups() default {};
+
     Class<? extends Payload>[] payload() default {};
 }

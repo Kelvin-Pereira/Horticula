@@ -27,7 +27,7 @@ public class JwtService {
     private static final String SECRET_KEY = "4226452948404D635166546A576D5A7134743777217A25432A462D4A614E6452";
 
     public String extractUsername(String token) {
-        return extractClaim(token, (Claims c) ->c.get("email").toString());
+        return extractClaim(token, (Claims c) -> c.get("email").toString());
     }
 
     public String generateToken(UserDetails userDetails) {
