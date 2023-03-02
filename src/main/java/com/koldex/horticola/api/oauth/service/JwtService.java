@@ -27,7 +27,7 @@ public class JwtService {
     private static final String SECRET_KEY = "4226452948404D635166546A576D5A7134743777217A25432A462D4A614E6452";
 
     public String extractUsername(String token) {
-        return extractClaim(token, (Claims c) -> c.get("email").toString());
+        return extractClaim(token, (Claims c) -> c.get("cpf").toString());
     }
 
     public String generateToken(UserDetails userDetails) {
@@ -35,7 +35,7 @@ public class JwtService {
     }
 
     private Map<String, String> createClaim(UserDetails userDetails) {
-        User user = repository.findByEmailIgnoreCase(userDetails.getUsername()).orElseThrow(() -> new NegocioException("Usúario não localizado."));
+        User user = repository.findByCpf(userDetails.getUsername()).orElseThrow(() -> new NegocioException("Usúario não localizado."));
         Map<String, String> claims = new HashMap<>();
         claims.put("idUsuario", user.getIdUser().toString());
         claims.put("nome", user.getNomeCompleto());

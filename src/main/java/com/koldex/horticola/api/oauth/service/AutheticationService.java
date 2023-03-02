@@ -49,10 +49,10 @@ public class AutheticationService {
     public AuthenticationDTO authetication(AuthenticateDTO authenticateDTO) {
         authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(
-                        authenticateDTO.getEmail(),
+                        authenticateDTO.getCpf(),
                         authenticateDTO.getPassword())
         );
-        var user = repository.findByEmailIgnoreCase(authenticateDTO.getEmail()).orElseThrow();
+        var user = repository.findByCpf(authenticateDTO.getCpf()).orElseThrow();
         var jwtToken = jwtService.generateToken(user);
         return AuthenticationDTO.builder()
                 .token(jwtToken)

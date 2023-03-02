@@ -7,5 +7,6 @@ import org.springframework.lang.NonNull;
 import java.util.Optional;
 
 public interface UserRepository extends JpaRepository<User, Long> {
-    Optional<User> findByEmailIgnoreCase(@NonNull String email);
+    //    Optional<User> findByEmailIgnoreCase(@NonNull String email);
+    Optional<User> findByCpf(@NonNull String cpf);
 }

@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class AuthenticateDTO {
 
-    private String email;
+    private String cpf;
     private String password;
 
 }

@@ -3,6 +3,7 @@ package com.koldex.horticola.config.exceptions;
 import jakarta.validation.ConstraintViolationException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -68,6 +69,16 @@ public class ControllerExceptionHandler {
         ResponseError responseError = new ResponseError();
         responseError.setCode(HttpStatus.INTERNAL_SERVER_ERROR.value());
         responseError.setDescription("Ocorreu um erro interno em nosso servidor.");
+        return responseError;
+    }
+
+    @ResponseStatus(HttpStatus.UNAUTHORIZED)
+    @ExceptionHandler(BadCredentialsException.class)
+    public ResponseError handleBadCredentialsException(BadCredentialsException e) {
+        log.error(String.valueOf(e));
+        ResponseError responseError = new ResponseError();
+        responseError.setDescription("Credenciais inválidas");
+        responseError.setCode(HttpStatus.UNAUTHORIZED.value());
         return responseError;
     }
 
