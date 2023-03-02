@@ -27,8 +27,7 @@ public class AutheticationService {
     @Transactional
     public AuthenticationDTO register(RegisterDTO registerDTO) {
         var user = User.builder()
-                .firstName(registerDTO.getPrimeiroNome())
-                .lastName(registerDTO.getSobreNome())
+                .nome(registerDTO.getNome())
                 .cpf(registerDTO.getCpf())
                 .email(registerDTO.getEmail())
                 .password(passwordEncoder.encode(registerDTO.getPassword()))

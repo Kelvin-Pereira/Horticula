@@ -2,6 +2,7 @@ package com.koldex.horticola.config.exceptions;
 
 import jakarta.validation.ConstraintViolationException;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.validation.FieldError;
@@ -79,6 +80,16 @@ public class ControllerExceptionHandler {
         ResponseError responseError = new ResponseError();
         responseError.setDescription("Credenciais inválidas");
         responseError.setCode(HttpStatus.UNAUTHORIZED.value());
+        return responseError;
+    }
+
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ExceptionHandler(DataIntegrityViolationException.class)
+    public ResponseError handleDataIntegrityViolationException(DataIntegrityViolationException ex) {
+        log.error(String.valueOf(ex));
+        ResponseError responseError = new ResponseError();
+        responseError.setDescription("Erro de violação de integridade do banco de dados");
+        responseError.setCode(HttpStatus.BAD_REQUEST.value());
         return responseError;
     }
 

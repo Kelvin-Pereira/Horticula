@@ -14,8 +14,7 @@ import java.util.Set;
 @NoArgsConstructor
 public class RegisterDTO {
 
-    private String primeiroNome;
-    private String sobreNome;
+    private String nome;
     private String cpf;
     private String email;
     private Set<PerfilEnum> perfils;

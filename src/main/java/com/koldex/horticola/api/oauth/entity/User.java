@@ -24,10 +24,8 @@ public class User implements UserDetails {
     @SequenceGenerator(name = "user_seq", sequenceName = "user_seq", allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "user_seq")
     private Long idUser;
-    @Size(max = 20)
-    private String firstName;
-    @Size(max = 100)
-    private String lastName;
+    @Size(max = 255)
+    private String nome;
     @Size(max = 11)
     private String cpf;
     @Size(max = 60)
@@ -70,10 +68,6 @@ public class User implements UserDetails {
     @Override
     public boolean isEnabled() {
         return true;
-    }
-
-    public String getNomeCompleto() {
-        return firstName + " " + lastName;
     }
 
 }

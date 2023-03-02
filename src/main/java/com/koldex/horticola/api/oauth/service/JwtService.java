@@ -38,7 +38,7 @@ public class JwtService {
         User user = repository.findByCpf(userDetails.getUsername()).orElseThrow(() -> new NegocioException("Usúario não localizado."));
         Map<String, String> claims = new HashMap<>();
         claims.put("idUsuario", user.getIdUser().toString());
-        claims.put("nome", user.getNomeCompleto());
+        claims.put("nome", user.getNome());
         claims.put("cpf", user.getCpf());
         claims.put("email", userDetails.getUsername());
         claims.put("perfils", userDetails.getAuthorities().stream().map(String::valueOf).collect(Collectors.joining(",")));

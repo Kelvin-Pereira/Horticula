@@ -19,7 +19,7 @@ public final class UsuarioPrincipal implements Usuario {
 
     UsuarioPrincipal(User user) {
         id = user.getIdUser();
-        nome = user.getNomeCompleto();
+        nome = user.getNome();
         cpf = user.getCpf();
         email = user.getEmail();
         perfils = user.getPerfils().stream().map(Perfil::getPerfil).collect(Collectors.toSet());
