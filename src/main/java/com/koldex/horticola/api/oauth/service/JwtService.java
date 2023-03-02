@@ -40,7 +40,7 @@ public class JwtService {
         claims.put("idUsuario", user.getIdUser().toString());
         claims.put("nome", user.getNome());
         claims.put("cpf", user.getCpf());
-        claims.put("email", userDetails.getUsername());
+        claims.put("email", user.getEmail());
         claims.put("perfils", userDetails.getAuthorities().stream().map(String::valueOf).collect(Collectors.joining(",")));
         return claims;
     }
