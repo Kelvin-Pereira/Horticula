@@ -26,7 +26,7 @@ public class RegisterService implements Function<RegisterDTO, AuthenticationDTO>
     public AuthenticationDTO apply(RegisterDTO registerDTO) {
         var user = User.builder()
                 .nome(registerDTO.getNome())
-                .cpf(registerDTO.getCpf())
+                .cpf(registerDTO.getCpf().digitos())
                 .email(registerDTO.getEmail())
                 .password(passwordEncoder.encode(registerDTO.getPassword()))
                 .perfils(registerDTO.getPerfils().stream().map(perfilEnum -> {

@@ -1,6 +1,7 @@
 package com.koldex.horticola.api.oauth.dto;
 
 import com.koldex.horticola.api.oauth.entity.enums.PerfilEnum;
+import com.koldex.horticola.api.util.type.Cpf;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -15,7 +16,7 @@ import java.util.Set;
 public class RegisterDTO {
 
     private String nome;
-    private String cpf;
+    private Cpf cpf;
     private String email;
     private Set<PerfilEnum> perfils;
     private String password;

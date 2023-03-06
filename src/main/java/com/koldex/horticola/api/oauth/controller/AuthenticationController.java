@@ -5,6 +5,7 @@ import com.koldex.horticola.api.oauth.dto.AuthenticationDTO;
 import com.koldex.horticola.api.oauth.dto.RegisterDTO;
 import com.koldex.horticola.api.oauth.service.AutheticationService;
 import com.koldex.horticola.api.oauth.service.RegisterService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -21,7 +22,7 @@ public class AuthenticationController {
     private final RegisterService registerService;
 
     @PostMapping("/register")
-    public ResponseEntity<AuthenticationDTO> register(@RequestBody RegisterDTO registerDTO) {
+    public ResponseEntity<AuthenticationDTO> register(@RequestBody @Valid RegisterDTO registerDTO) {
         return ResponseEntity.ok(registerService.apply(registerDTO));
     }
 
