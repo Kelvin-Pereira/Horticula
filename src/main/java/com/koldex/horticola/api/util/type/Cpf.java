@@ -1,5 +1,7 @@
 package com.koldex.horticola.api.util.type;
 
+import org.springframework.http.converter.HttpMessageConversionException;
+
 import java.util.Formatter;
 
 public final class Cpf {
@@ -12,11 +14,11 @@ public final class Cpf {
 
     public Cpf(String valor) {
         if (valor == null || valor.trim().isEmpty()) {
-            throw new IllegalArgumentException("O valor do CPF não pode ser nulo ou vazio");
+            throw new HttpMessageConversionException("O valor do CPF não pode ser nulo ou vazio");
         }
         this.cpf = valor.replaceAll("\\D", "");
         if (!isValido()) {
-            throw new IllegalArgumentException("CPF inválido: " + valor);
+            throw new HttpMessageConversionException("CPF inválido: " + valor);
         }
     }
 

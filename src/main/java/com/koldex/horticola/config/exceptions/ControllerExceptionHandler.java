@@ -4,6 +4,7 @@ import jakarta.validation.ConstraintViolationException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.converter.HttpMessageConversionException;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -89,6 +90,16 @@ public class ControllerExceptionHandler {
         log.error(String.valueOf(ex));
         ResponseError responseError = new ResponseError();
         responseError.setDescription("Erro de violação de integridade do banco de dados");
+        responseError.setCode(HttpStatus.BAD_REQUEST.value());
+        return responseError;
+    }
+
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ExceptionHandler(HttpMessageConversionException.class)
+    public ResponseError handleDataIntegrityViolationException(HttpMessageConversionException ex) {
+        log.error(String.valueOf(ex));
+        ResponseError responseError = new ResponseError();
+        responseError.setDescription(ex.getCause().getCause().getMessage());
         responseError.setCode(HttpStatus.BAD_REQUEST.value());
         return responseError;
     }
