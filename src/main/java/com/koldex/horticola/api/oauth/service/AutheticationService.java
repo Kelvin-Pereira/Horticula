@@ -21,10 +21,10 @@ public class AutheticationService implements Function<AuthenticateDTO, Authentic
     public AuthenticationDTO apply(AuthenticateDTO authenticateDTO) {
         authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(
-                        authenticateDTO.getCpf(),
+                        authenticateDTO.getCpf().digitos(),
                         authenticateDTO.getPassword())
         );
-        var user = repository.findByCpf(authenticateDTO.getCpf()).orElseThrow();
+        var user = repository.findByCpf(authenticateDTO.getCpf().digitos()).orElseThrow();
         var jwtToken = jwtService.generateToken(user);
         return AuthenticationDTO.builder()
                 .token(jwtToken)

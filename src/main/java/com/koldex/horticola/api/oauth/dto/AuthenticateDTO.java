@@ -1,5 +1,6 @@
 package com.koldex.horticola.api.oauth.dto;
 
+import com.koldex.horticola.api.util.type.Cpf;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -11,7 +12,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class AuthenticateDTO {
 
-    private String cpf;
+    private Cpf cpf;
     private String password;
 
 }
